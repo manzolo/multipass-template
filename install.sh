@@ -31,9 +31,9 @@ multipass mount ${HOST_DIR_NAME} $VM_NAME
 multipass list
 
 msg_info "[Task 2]"
-msg_warn "Installing packages on $VM_NAME"
+msg_warn "Configure $VM_NAME"
 
-run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_run_docker.sh ${HOST_DIR_NAME}"
+run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_configure.sh ${HOST_DIR_NAME}"
 
 msg_info "[Task 3]"
 msg_warn "On task complete"
