@@ -17,12 +17,14 @@ jobs:
         shell: bash
         run: |
           until multipass list; do
-            echo 'multipass is not running, will check again in 2 seconds'
-            sleep 2
+            echo 'multipass is not running, will check again in 5 seconds'
+            sleep 5
           done
       - name: Download source
         uses: actions/checkout@v2
-      - name: Create cluster
+      - name: Create VM
         run: ./install.sh
-      - name: Destroy cluster
+      - name: Create VM
+        run: ./test.sh
+      - name: Destroy VM
         run: ./uninstall.sh

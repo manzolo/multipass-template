@@ -38,13 +38,3 @@ run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_run_docker.sh ${HOST_DIR_
 msg_info "[Task 3]"
 msg_warn "On task complete"
 
-VM_IP=$(multipass info $VM_NAME | grep IPv4 | awk '{print $2}')
-msg_warn "Shell on "$VM_NAME
-msg_info "multipass shell "$VM_NAME
-echo ""
-msg_warn "#Run command on "$VM_NAME
-command_on_vm="hostname"
-command="multipass exec -v ${VM_NAME} -- ${command_on_vm}"
-msg_warn "$command"
-echo ""
-$command
