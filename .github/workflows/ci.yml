@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Create VM
         run: ./install.sh
-      - name: Create VM
+      - name: Test VM
         run: ./test.sh
       - name: Destroy VM
         run: ./uninstall.sh
