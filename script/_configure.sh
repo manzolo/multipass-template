@@ -1,5 +1,5 @@
 #!/bin/bash
-source $(dirname $0)/__functions.sh
+. $(dirname $0)/__functions.sh
 HOST_DIR_NAME=$1
 
 #Install packages here

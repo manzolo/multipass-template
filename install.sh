@@ -7,11 +7,11 @@ mainCpu=1
 #GB of RAM for main VM
 mainRam=1Gb
 #GB of HDD for main VM
-mainHddGb=10Gb
+mainHddGb=5Gb
 #--------------------------------------------------------------------------
 
 #Include functions
-source $(dirname $0)/script/__functions.sh 
+. $(dirname $0)/script/__functions.sh 
 
 msg_warn "Check prerequisites..."
 
@@ -34,6 +34,10 @@ msg_info "[Task 2]"
 msg_warn "Configure $VM_NAME"
 
 run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_configure.sh ${HOST_DIR_NAME}"
+
+msg_info "[Task 2]"
+msg_warn "Start $VM_NAME"
+./start.sh
 
 msg_info "[Task 3]"
 msg_warn "On task complete"

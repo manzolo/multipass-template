@@ -5,7 +5,7 @@
 HOST_DIR_NAME=${PWD}
 
 #Include functions
-#source $(dirname $0)/__functions.sh 
+#. $(dirname $0)/__functions.sh 
 
 # PATH TO YOUR HOSTS FILE
 ETC_HOSTS=/etc/hosts

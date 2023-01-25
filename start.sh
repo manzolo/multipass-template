@@ -3,14 +3,14 @@
 HOST_DIR_NAME=${PWD}
 
 #Include functions
-source $(dirname $0)/script/__functions.sh 
+. ${HOST_DIR_NAME}/script/__functions.sh 
 
 msg_warn "Starting vm"
 multipass start $VM_NAME
 
 msg_info "$VM_NAME started!"
 
-. $(dirname $0)/script/_hosts_manager.sh
+. ${HOST_DIR_NAME}/script/_hosts_manager.sh
 
 removehost
 addhost

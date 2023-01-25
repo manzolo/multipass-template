@@ -1,5 +1,7 @@
 #!/bin/bash
-VM_NAME=vm-main
+
+. $(dirname $BASH_SOURCE)/../env
+
 NC=$'\033[0m' # No Color
 
 function msg_info() {
