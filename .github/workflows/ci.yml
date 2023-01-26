@@ -22,8 +22,8 @@ jobs:
           done
       - name: Download source
         uses: actions/checkout@v2
-      - name: Create VM
-        run: ./install.sh
+      - name: Setup VM
+        run: ./setup.sh
       - name: Test VM
         run: ./test.sh
       - name: Destroy VM
