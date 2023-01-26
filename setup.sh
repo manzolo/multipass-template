@@ -35,6 +35,8 @@ msg_warn "Configure $VM_NAME"
 
 run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_configure.sh ${HOST_DIR_NAME}"
 
+sleep 10
+
 msg_info "[Task 2]"
 msg_warn "Start $VM_NAME"
 ${HOST_DIR_NAME}/start.sh
