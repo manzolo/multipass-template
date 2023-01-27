@@ -35,13 +35,14 @@ msg_warn "Configure $VM_NAME"
 
 run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_configure.sh ${HOST_DIR_NAME}"
 
+multipass umount "$VM_NAME:${HOST_DIR_NAME}"
+
 sleep ${SLEEP_BEFORE_START:-10}
-multipass list
+#multipass list
 ${HOST_DIR_NAME}/stop.sh
-multipass list
+#multipass list
 ${HOST_DIR_NAME}/start.sh
 
-multipass umount "$VM_NAME:${HOST_DIR_NAME}"
 multipass mount ${HOST_DIR_NAME} $VM_NAME
 run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_complete.sh ${HOST_DIR_NAME}"
 multipass umount "$VM_NAME:${HOST_DIR_NAME}"
