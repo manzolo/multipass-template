@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [main]
 env:
-  SLEEP_BEFORE_START: 300
+  SLEEP_BEFORE_START: 30
   SLEEP_RETRY: 10
   RETRY_COMMAND: 20
 jobs:
