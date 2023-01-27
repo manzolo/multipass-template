@@ -13,7 +13,7 @@ case $VM_STATUS in
         ;;
     "Starting")
         n=0
-        until [ ${n} -ge 5 ]
+        until [ ${n} -ge ${RETRY_COMMAND:-5} ]
         do
             VM_STATUS=$(multipass info $VM_NAME | grep State | awk '{print $2}')
             if [[ $VM_STATUS =~ "Running" ]]; then
@@ -23,7 +23,7 @@ case $VM_STATUS in
                 msg_warn "$VM_NAME starting..."
             fi           
             n=$((n+1)) 
-            sleep 15
+            sleep ${SLEEP_RETRY:-10}
         done
         ;;
     "Stopped")
