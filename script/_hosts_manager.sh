@@ -27,7 +27,7 @@ removehost() {
 
 addhost() {
     msg_warn "adding host entry ";
-    HOSTS_LINE="$IP\t$VM_NAME"
+    HOSTS_LINE="$IP $VM_NAME"
     if [ -n "$(grep $VM_NAME /etc/hosts)" ]
         then
             msg_warn "$VM_NAME already exists : $(grep $VM_NAME $ETC_HOSTS)"
@@ -37,7 +37,7 @@ addhost() {
 
             if [ -n "$(grep $VM_NAME /etc/hosts)" ]
                 then
-                    msg_info "$VM_NAME was added succesfully \n $(grep $VM_NAME /etc/hosts)";
+                    msg_info "$VM_NAME was added succesfully -> $(grep $VM_NAME /etc/hosts)";
                 else
                     msg_error "Failed to Add $VM_NAME, Try again!";
             fi

@@ -5,15 +5,38 @@ HOST_DIR_NAME=${PWD}
 #Include functions
 . ${HOST_DIR_NAME}/script/__functions.sh 
 
-msg_warn "Starting vm"
-multipass start $VM_NAME
-
-msg_info "$VM_NAME started!"
-
-. ${HOST_DIR_NAME}/script/_hosts_manager.sh
-
-removehost
-addhost
+msg_warn "Starting vm..."
+VM_STATUS=$(multipass info $VM_NAME | grep State | awk '{print $2}')
+case $VM_STATUS in
+    "Running")
+        msg_warn "$VM_NAME already running..."
+        ;;
+    "Starting")
+        n=0
+        until [ ${n} -ge 5 ]
+        do
+            VM_STATUS=$(multipass info $VM_NAME | grep State | awk '{print $2}')
+            if [[ $VM_STATUS =~ "Running" ]]; then
+                msg_warn "$VM_NAME already running..."
+                break
+            elif [[ $VM_STATUS =~ "Starting" ]]; then
+                msg_warn "$VM_NAME starting..."
+            fi           
+            n=$((n+1)) 
+            sleep 15
+        done
+        ;;
+    "Stopped")
+        multipass start $VM_NAME
+        msg_info "$VM_NAME started!"
+        . ${HOST_DIR_NAME}/script/_hosts_manager.sh
+        removehost
+        addhost
+        ;;
+    *) 
+        msg_error "$VM_NAME: $VM_STATUS"
+        ;;
+esac
 
 echo "------------------------------------------------"
 echo ""

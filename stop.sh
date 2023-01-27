@@ -6,9 +6,35 @@ HOST_DIR_NAME=${PWD}
 . $(dirname $0)/script/__functions.sh 
 . $(dirname $0)/script/_hosts_manager.sh 
 
-removehost
-
-msg_warn "Stop vm..."
-multipass stop $VM_NAME
-
-msg_info "$VM_NAME stopped!"
+VM_STATUS=$(multipass info $VM_NAME | grep State | awk '{print $2}')
+case $VM_STATUS in
+    "Running")
+        msg_warn "Stop vm..."
+        multipass stop $VM_NAME
+        removehost
+        ;;
+    "Starting")
+        n=0
+        until [ ${n} -ge 5 ]
+        do
+            VM_STATUS=$(multipass info $VM_NAME | grep State | awk '{print $2}')
+            if [[ $VM_STATUS =~ "Running" ]]; then
+                msg_warn "Stop vm..."
+                multipass stop $VM_NAME
+                removehost
+                msg_info "$VM_NAME stopped!"
+                break
+            else
+                msg_warn "$VM_NAME starting..."
+            fi
+            n=$((n+1)) 
+            sleep 15
+        done
+        ;;
+    "Stopped")
+        msg_info "$VM_NAME already stopped"
+        ;;
+    *) 
+        msg_error "$VM_NAME: $VM_STATUS"
+        ;;
+esac

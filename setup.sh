@@ -37,6 +37,8 @@ run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_configure.sh ${HOST_DIR_N
 
 sleep 10
 
+run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_complete.sh ${HOST_DIR_NAME}"
+
 msg_info "[Task 2]"
 msg_warn "Start $VM_NAME"
 ${HOST_DIR_NAME}/start.sh
