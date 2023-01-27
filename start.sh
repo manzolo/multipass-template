@@ -11,6 +11,21 @@ case $VM_STATUS in
     "Running")
         msg_warn "$VM_NAME already running..."
         ;;
+    "Restarting")
+        n=0
+        until [ ${n} -ge ${RETRY_COMMAND:-5} ]
+        do
+            VM_STATUS=$(multipass info $VM_NAME | grep State | awk '{print $2}')
+            if [[ $VM_STATUS =~ "Restarting" ]]; then
+                msg_warn "$VM_NAME restarting..."
+                break
+            elif [[ $VM_STATUS =~ "Running" ]]; then
+                msg_info "$VM_NAME started!"
+            fi           
+            n=$((n+1)) 
+            sleep ${SLEEP_RETRY:-10}
+        done
+        ;;
     "Starting")
         n=0
         until [ ${n} -ge ${RETRY_COMMAND:-5} ]

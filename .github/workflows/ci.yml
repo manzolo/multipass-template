@@ -5,7 +5,7 @@ on:
 env:
   SLEEP_BEFORE_START: 30
   SLEEP_RETRY: 10
-  RETRY_COMMAND: 20
+  RETRY_COMMAND: 60
 jobs:
   build:
     runs-on: macos-latest
