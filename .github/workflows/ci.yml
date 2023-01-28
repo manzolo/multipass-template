@@ -27,6 +27,8 @@ jobs:
           done
       - name: Download source
         uses: actions/checkout@v2
+      - name: Create ENV
+        run: cp env.dist env
       - name: Setup VM
         run: ./setup.sh
       - name: Test VM

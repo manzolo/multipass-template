@@ -5,7 +5,7 @@ HOST_DIR_NAME=$1
 for file in ${HOST_DIR_NAME}/install/post/*
 do
     [ -f ${file} ] || continue
-    msg_warn "install $(basename $file)"
+    msg_warn "Installing: $(basename $file)"
     chmod a+x ${file}
     ${file}
 done

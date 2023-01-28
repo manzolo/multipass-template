@@ -40,6 +40,9 @@ sleep 10
 
 ${HOST_DIR_NAME}/start.sh
 
+msg_warn "Installing add-ons"
+run_command_on_vm "$VM_NAME" "$VM_INSTALL_PATH/script/_addons.sh ${VM_INSTALL_PATH}"
+
 run_command_on_vm "$VM_NAME" "${VM_INSTALL_PATH}/script/_complete.sh ${VM_INSTALL_PATH}"
 
 msg_info "[Task 2]"
