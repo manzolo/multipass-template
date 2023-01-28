@@ -2,7 +2,7 @@
 HOST_DIR_NAME=$1
 . $HOST_DIR_NAME/script/__functions.sh
 
-for file in ${HOST_DIR_NAME}/install/*
+for file in ${HOST_DIR_NAME}/install/prepare/*
 do
     [ -f ${file} ] || continue
     msg_warn "install $(basename $file)"
