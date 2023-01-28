@@ -53,16 +53,29 @@ case $VM_STATUS in
         ;;
 esac
 
-echo "------------------------------------------------"
-echo ""
-msg_warn "Shell on "$VM_NAME
-msg_info "multipass shell "$VM_NAME
-echo ""
 
-echo "Start VM:"
-msg_warn "./start.sh"
-echo "Stop VM:"
-msg_warn "./stop.sh"
-echo "Uninstall VM:"
-msg_warn "./uninstall.sh"
-echo "------------------------------------------------"
+while [ "`echo $1 | cut -c1`" = "-" ]
+do
+    case "$1" in
+        -v)
+            echo "------------------------------------------------"
+            echo ""
+            msg_warn "Shell on "$VM_NAME
+            msg_info "multipass shell "$VM_NAME
+            echo ""
+
+            echo "Start VM:"
+            msg_warn "./start.sh"
+            echo "Stop VM:"
+            msg_warn "./stop.sh"
+            echo "Uninstall VM:"
+            msg_warn "./uninstall.sh"
+            echo "------------------------------------------------"
+            shift 1
+            ;;
+        *)
+            exit 1
+            ;;
+esac
+done
+

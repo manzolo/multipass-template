@@ -8,6 +8,7 @@ mainCpu=1
 mainRam=1Gb
 #GB of HDD for main VM
 mainHddGb=5Gb
+VM_INSTALL_PATH=/home/ubuntu/setup
 #--------------------------------------------------------------------------
 
 #Include functions
@@ -19,30 +20,27 @@ msg_warn "Check prerequisites..."
 check_command_exists "multipass"
 
 msg_warn "Creating vm"
-multipass launch -m $mainRam -d $mainHddGb -c $mainCpu -n $VM_NAME
+multipass launch -m $mainRam -d $mainHddGb -c $mainCpu -n $VM_NAME lts
 
 msg_info $VM_NAME" is up!"
 
 msg_info "[Task 1]"
 msg_warn "Mount host drive with installation scripts"
-
-multipass mount ${HOST_DIR_NAME} $VM_NAME
+multipass transfer --recursive ${HOST_DIR_NAME} $VM_NAME:$VM_INSTALL_PATH
 
 #multipass list
 
 msg_info "[Task 2]"
 msg_warn "Configure $VM_NAME"
 
-run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_configure.sh ${HOST_DIR_NAME}"
+run_command_on_vm "$VM_NAME" "$VM_INSTALL_PATH/script/_configure.sh ${VM_INSTALL_PATH}"
+run_command_on_vm "$VM_NAME" "sudo shutdown -h now"
 
-multipass umount "$VM_NAME:${HOST_DIR_NAME}"
+sleep 10
 
-multipass restart $VM_NAME
+${HOST_DIR_NAME}/start.sh -v
 
-multipass mount ${HOST_DIR_NAME} $VM_NAME
-run_command_on_vm "$VM_NAME" "${HOST_DIR_NAME}/script/_complete.sh ${HOST_DIR_NAME}"
-multipass umount "$VM_NAME:${HOST_DIR_NAME}"
-${HOST_DIR_NAME}/stop.sh
+run_command_on_vm "$VM_NAME" "${VM_INSTALL_PATH}/script/_complete.sh ${VM_INSTALL_PATH}"
 
 msg_info "[Task 2]"
 msg_warn "Start $VM_NAME"
