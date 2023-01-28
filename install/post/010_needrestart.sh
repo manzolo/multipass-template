@@ -1,2 +1,3 @@
 #!/bin/bash
-sudo apt -y install needrestart
+echo "Install needrestart..."
+sudo apt -qqy install needrestart > /dev/null

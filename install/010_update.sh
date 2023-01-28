@@ -1,4 +1,6 @@
 #!/bin/bash
-sudo apt -y remove needrestart
-DEBIAN_FRONTEND=noninteractive sudo apt -qqy update;
-DEBIAN_FRONTEND=noninteractive sudo apt -qqy upgrade;
+echo "Remove needrestart..."
+sudo apt -y remove needrestart > /dev/null
+echo "Upgrade packages..."
+DEBIAN_FRONTEND=noninteractive sudo apt -qqy update > /dev/null
+DEBIAN_FRONTEND=noninteractive sudo apt -qqy upgrade > /dev/null

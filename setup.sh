@@ -38,13 +38,13 @@ run_command_on_vm "$VM_NAME" "sudo shutdown -h now"
 
 sleep 10
 
-${HOST_DIR_NAME}/start.sh -v
+${HOST_DIR_NAME}/start.sh
 
 run_command_on_vm "$VM_NAME" "${VM_INSTALL_PATH}/script/_complete.sh ${VM_INSTALL_PATH}"
 
 msg_info "[Task 2]"
 msg_warn "Start $VM_NAME"
-${HOST_DIR_NAME}/start.sh
+${HOST_DIR_NAME}/start.sh -v
 
 msg_info "[Task 3]"
 msg_warn "On task complete"
